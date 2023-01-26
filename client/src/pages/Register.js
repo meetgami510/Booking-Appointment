@@ -7,11 +7,10 @@ function Register() {
         console.log(values);
     }
   return (
-    <div>
-      <h1> Register </h1>
+    <div>   
       <div className="form-container">
-        <Form layout='vertical' onFinish={onfinishHandler}>
-            <h1>Register From</h1>
+        <Form layout='vertical' onFinish={onfinishHandler} className="register-form">
+            <h3>Register From</h3>
             <Form.Item label="Name" name="name">
                 <Input type='text' required/>
             </Form.Item>
