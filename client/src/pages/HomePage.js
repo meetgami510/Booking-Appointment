@@ -5,9 +5,11 @@ import axios from 'axios'
 function HomePage() {
   const getUserData = async () => {
     try {
+
       const res = await axios.post('/api/v1/user/getUserData',{},{
         headers:{
-          Authorization : "Bearer" + localStorage.getItem('token')
+          //makesure You need to put space here so that in backend we split from headers.
+          Authorization : "Bearer " + localStorage.getItem("token")
         }
       })
     }catch(error) {
