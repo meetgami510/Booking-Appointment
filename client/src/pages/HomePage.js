@@ -1,4 +1,5 @@
 import React,{useEffect} from 'react'
+import axios from 'axios'
 
 
 function HomePage() {
@@ -12,7 +13,11 @@ function HomePage() {
     }catch(error) {
       console.log(error);
     }
-  }
+  };
+
+  useEffect(() => {
+    getUserData();
+  },[])
   return (
     <div>HomePage</div>
   )

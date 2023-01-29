@@ -44,7 +44,9 @@ const loginController = async (req,res) => {
         if(!isMatch) {
             return res.status(200).send({message:'Invalid Email or Password',success:false})
         }
-        const token = jwt.sign({id:user._id},process.env.JWT_SECRET,{expiresIn:'1d'});
+        const token = jwt.sign({id:user._id},process.env.JWT_SECRET,{
+            expiresIn:'1d'
+        });
         res.status(200).send({message:'Login Success',success:true,token})
     }catch(error){
         console.log(error);
@@ -52,4 +54,30 @@ const loginController = async (req,res) => {
     }
 }
 
-module.exports = {loginController,registerController};
+const authController = async (req,res) => {
+    try{
+        const user = await userModel.findById({_id:req.body.userId});
+        user.password = undefined;
+        console.log("hekki");
+        if(!user) {
+            return res.status(200).send({
+                message:'user not found',
+                success:false
+            });
+        }else{
+            res.status(200).send({
+                success:true,
+                data:user,
+            });
+        }
+    }catch(error) {
+        console.log(error);
+        res.status(500).send({
+            message:'auth error',
+            success:false,
+            error,
+        })
+    }
+}
+
+module.exports = {loginController,registerController,authController};
