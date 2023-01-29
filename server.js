@@ -19,11 +19,7 @@ app.use(express.json())
 app.use(moragan('dev'))
 
 //routes
-app.get('/', (req,res)=>{
-    res.status(200).send({
-        message:"server running"
-    })
-})
+app.use('/api/v1/user',require('./server/routers/userRoutes'))
 
 //decleareing port
 const port = process.env.PORT || 8080
