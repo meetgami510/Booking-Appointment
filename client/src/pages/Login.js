@@ -1,11 +1,28 @@
 import React from 'react'
-import {Button, Form, Input }  from 'antd'
+import { Form, Input ,message}  from 'antd'
+import axios from 'axios'
 import "../styles/RegisterStyles.css"
-import {Link} from 'react-router-dom'
+import {Link,useNavigate} from 'react-router-dom'
+
 
 function Login() {
-  const onfinishHandler = (values)=> {
-    console.log(values);
+  const navigate = useNavigate()
+  const onfinishHandler = async (values)=> {
+    try{
+      const res = await axios.post('/api/v1/user/login',values)
+      if(res.data.success) {
+        //res.cookie("jwtoken","hii meet");
+        localStorage.setItem("token",res.data.token);
+        message.success('Login successfully DONE');
+        navigate('/');
+      }else{
+        message.error(res.data.message)
+      }
+
+    }catch(error) {
+      console.log(error);
+      message.error('somthing went wrong')
+    }
   }
   return (
     <div>

@@ -11,4 +11,6 @@ router.post('/login',loginController);
 //Register || POST
 router.post('/register',registerController);
 
+//Auth || POST
+
  module.exports = router
