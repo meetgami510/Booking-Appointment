@@ -1,21 +1,29 @@
 import React from 'react'
 import { Form, Input ,message}  from 'antd'
+import { useDispatch } from 'react-redux'
+import { showLoading,hideLoading } from '../redux/features/alertSlice'
 import axios from 'axios'
 import "../styles/RegisterStyles.css"
 import {Link,useNavigate} from 'react-router-dom'
+import { setUser } from '../redux/features/userSlice'
 
 
-function Login() {
+function Login({setCookies}) {
   const navigate = useNavigate()
+  const dispatch = useDispatch();
   const onfinishHandler = async (values)=> {
     try{
+      dispatch(showLoading())
       const res = await axios.post('/api/v1/user/login',values)
+      dispatch(hideLoading());
       if(res.data.success) {
         //res.cookie("jwtoken","hii meet");
-        localStorage.setItem("token",res.data.token);
+        setCookies('token',res.data.token);
+        //localStorage.setItem("token",res.data.token);
         message.success('Login successfully DONE');
         navigate('/');
       }else{
+        dispatch(hideLoading());
         message.error(res.data.message)
       }
 
