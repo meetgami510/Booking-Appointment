@@ -1,57 +1,42 @@
-const mongoose  = require("mongoose")
+const mongoose = require('mongoose')
 
-const doctorSchema  = new mongoose.Schema (
+const appointmentSchema = new mongoose.Schema(
     {
-        userId : {
-            type : String,
-        },
-        firstName : {
-            type :String,
-            required:[true,"first name is required"]
-        },
-        lastName :{
-            type : String,
-            required : [true,"last name is required"]
-        },
-        phone:{
+        userId:{
             type:String,
-            required:[true,"phone no is required"]
+            required:true,
         },
-        email:{
-            type : String,
-            required:[true,"email is required"]
-        },
-        website:{
-            type : String,
-        },
-        address:{
+        doctorId:{
             type:String,
-            required:[true,"address is required"]
+            required:true,
         },
-        specialization:{
+        doctorInfo:{
             type:String,
-            required:[true,"specialization is required"]
+            required:true,
         },
-        experience:{
+        userInfo:{
             type:String,
-            required:[true,"experience is required"]
+            required:true,
         },
-        feesPerCunsaltation:{
-            type:Number,
-            required:[true,"fee is required"]
+        date:{
+            type:String,
+            required:true,
         },
         status:{
             type:String,
-            defalut:"pending",
+            required:true,
+            default:"pending",
         },
-        timings:{
-            type:Object,
-            required:[true,"work timing is required"],
+        time:{
+            type:String,
+            required:true,
         },
-                                      
+        
+        
     },
-    { timestamps : true}
-);
+    {timestamps :true}
+)
 
-const doctorModel = mongoose.model("doctors",doctorSchema);
-module.exports = doctorModel
+const appointmentModel = mongoose.model("appointments",appointmentSchema);
+
+module.exports = appointmentModel;
