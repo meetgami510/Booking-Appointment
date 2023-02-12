@@ -8,8 +8,9 @@ import { useSelector } from 'react-redux';
 import Spinner from './components/Spinner';
 import PublicRoute from './components/PublicRoute'
 import ProtectedRoute from './components/ProtectedRoute'
+import ApplyDoctor from './pages/ApplyDoctor';
 
-function App() {
+const App = () => {
   const {loading} = useSelector(state => state.alerts)
   const [cookies,setCookies,removeCookies] = useCookies(['token']);
 
@@ -22,7 +23,7 @@ function App() {
   return (
     <>
       <BrowserRouter>
-        {loading ? <Spinner /> :
+        {loading ? <Spinner />:
         <Routes>
           <Route path='/' element={
               <ProtectedRoute cookies={cookies} removeCookies={handleRemoveCookies}>
@@ -40,6 +41,11 @@ function App() {
             <PublicRoute cookies={cookies} >
                 <Register/>
             </PublicRoute>
+          } />
+          <Route path='/apply-doctor' element={
+              <ProtectedRoute cookies={cookies} removeCookies={handleRemoveCookies}>
+                <ApplyDoctor cookies={cookies} removeCookies={handleRemoveCookies}/>
+              </ProtectedRoute>
           } />
           
         </Routes>}

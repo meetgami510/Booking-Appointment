@@ -1,0 +1,32 @@
+import React from 'react'
+import {useNavigate} from 'react-router-dom'
+
+const DoctorList = ({ doctor }) => {
+    const navigate  = useNavigate();
+  return (
+    <>
+        <div className="card m-2" style={{cursor:"pointer"}} onClick={() => navigate(`/doctor/book-appointment/${doctor._id}`)}> 
+            
+        </div>
+        <div className="card-header">
+            Dr. {doctor.firstName} {doctor.lastName}
+        </div>
+        <div className="card-bady">
+            <p>
+                <b>Specialization</b> {doctor.specialization}
+            </p>
+            <p>
+                <b>Experiance</b> {doctor.experience}
+            </p>
+            <p>
+                <b>Fees Per Consaltation</b> {doctor.feesPerCunsaltation}
+            </p>
+            <p>
+                <b>Timins </b> {doctor.timing[0]} - {doctor.timing[1]}
+            </p>
+        </div>
+    </>
+  )
+}
+
+export default DoctorList

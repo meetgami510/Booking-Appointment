@@ -8,27 +8,31 @@ import {Link,useNavigate} from 'react-router-dom'
 import { setUser } from '../redux/features/userSlice'
 
 
-function Login({setCookies}) {
+const Login = ({setCookies}) => {
   const navigate = useNavigate()
   const dispatch = useDispatch();
   const onfinishHandler = async (values)=> {
     try{
-      dispatch(showLoading())
+       dispatch(showLoading())
+      //  console.log(values)
       const res = await axios.post('/api/v1/user/login',values)
+      //console.log(res.data);
       dispatch(hideLoading());
-      if(res.data.success) {
-        //res.cookie("jwtoken","hii meet");
-        setCookies('token',res.data.token);
-        //localStorage.setItem("token",res.data.token);
-        message.success('Login successfully DONE');
-        navigate('/');
-      }else{
+       if(res.data.success) {
+          console.log(res.data.token);
+         setCookies('token',res.data.token);
+      
+         message.success('Login successfully DONE');
+        console.log('sdfgs')
+         navigate('/');
+       }else{
         dispatch(hideLoading());
         message.error(res.data.message)
       }
 
     }catch(error) {
       console.log(error);
+      dispatch(hideLoading());
       message.error('somthing went wrong')
     }
   }

@@ -9,15 +9,18 @@ import { useNavigate } from 'react-router-dom'
 
 function ProtectedRoute({ children, cookies, removeCookies }) {
     const {token} = cookies;
+    console.log(token)
+    console.log("hii")
     const dispatch = useDispatch()
     const {user} = useSelector((state) => state.user);
     const navigate = useNavigate();
-
+//life Cycle method would be called
     useEffect(()=> {
+        //console.log("user protect")
         const getUser = async () => {
             try{
                 dispatch(showLoading());
-                const res = await axios.get('api/v1/user/getUserData',
+                const res = await axios.get('/api/v1/user/getUserData',
                     {
                         headers: {
                             Authorization : 'Bearer ' + token
@@ -25,8 +28,10 @@ function ProtectedRoute({ children, cookies, removeCookies }) {
                     }
                 )
                 dispatch(hideLoading());
+                //console.log(res.data)
                 if(res.data.success) {
-                    dispatch(setUser(res.data.user));
+
+                    dispatch(setUser(res.data.data));
                 }else{
                     removeCookies('token')
                     navigate('/login');
@@ -39,7 +44,7 @@ function ProtectedRoute({ children, cookies, removeCookies }) {
         if(!user) {
             getUser();
         }
-    },[dispatch,navigate,removeCookies,token,user])
+    },[])
 
     if(token) {
         return (

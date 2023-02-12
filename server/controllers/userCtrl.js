@@ -1,6 +1,8 @@
 const userModel = require('../models/userModels')
+const doctorModel = require('../models/doctorModels')
+const appointmentModel = require('../models/appointmentModels');
 const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken')
+const jwt = require('jsonwebtoken');
 
 //register callback
 const registerController = async (req,res) => {
@@ -35,7 +37,9 @@ const registerController = async (req,res) => {
 
 const loginController = async (req,res) => {
     try{
+        console.log(req.body);
         const user = await userModel.findOne({email:req.body.email})
+        console.log(user);
         if(!user) {
             return res.status(200).send({message:'user not found',success:false})
 
@@ -56,9 +60,11 @@ const loginController = async (req,res) => {
 
 const authController = async (req,res) => {
     try{
+        //console.log('from auth controller')
+        //console.log(req.body)
         const user = await userModel.findById({_id:req.body.userId});
-        
-        
+        console.log(user);
+        user.password = undefined;
         if(!user) {
             return res.status(200).send({
                 message:'user not found',
@@ -82,7 +88,9 @@ const authController = async (req,res) => {
 
 const getAllDoctorController = async (req,res) => {
     try{
-        const doctorList = await doctorModel.find({status : 'approved'});
+        console.log("hiehre")
+        console.log(req.name);
+        const doctorList = await doctorModel.find({name: req.name});
         res.status(200).send({
             success: true,
             message: 'doctor list fetched successfully',
@@ -98,4 +106,22 @@ const getAllDoctorController = async (req,res) => {
         })
     }
 }
-module.exports = {loginController,registerController,authController};
+
+const applyDoctorController = async (req,res) => {
+    try{
+        const user = req.body;
+        console.log(user);
+        return res.status(200).send({
+            success:true,
+            message: 'succful'
+        })
+    }catch(error) {
+        console.log(error);
+        return res.status(500).send({
+            success:true,
+            error,
+            message:'error while applying for doctor'
+        })
+    }
+}
+module.exports = {loginController,registerController,authController,getAllDoctorController,applyDoctorController};

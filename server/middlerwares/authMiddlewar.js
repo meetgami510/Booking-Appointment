@@ -1,12 +1,12 @@
-const JWT = require('jsonwebtoken')
+const jwt = require('jsonwebtoken')
 
 module.exports = async (req,res,next)=> {
-    
+    const token = req.headers.authorization.split(' ')[1];  
     try{
-        const token = req.headers["authorization"].split(" ")[1];  
-        // console.log("helloe");
-        // console.log(token);
-        JWT.verify(token,process.env.JWT_SECRET,(err,decode) => {
+        
+        console.log("helloe");
+        console.log(token);
+        jwt.verify(token,process.env.JWT_SECRET,(err,decode) => {
             if(err) {
                 // console.log("err");
                 return res.status(200).send({
