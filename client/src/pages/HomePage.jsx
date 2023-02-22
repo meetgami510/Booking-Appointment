@@ -25,7 +25,7 @@ const HomePage = ({cookies ,removeCookies}) => {
             }
           }
         );
-        //console.log(res.data)
+        
          dispatch(hideLoading());
         if(res.data.success) {
           

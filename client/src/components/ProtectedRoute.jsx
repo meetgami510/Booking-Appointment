@@ -25,7 +25,7 @@ function ProtectedRoute({ children, cookies, removeCookies }) {
                         headers: {
                             Authorization : 'Bearer ' + token
                         }
-                    }
+                    }  
                 )
                 dispatch(hideLoading());
                 //console.log(res.data)
