@@ -111,6 +111,7 @@ const getAllDoctorController = async (req, res) => {
 const applyDoctorController = async (req, res) => {
     try {
         const user = req.body;
+        console.log(user);
         const checkDoctor = await doctorModel.findOne({ $or: [{ userId: req.body.userId }, { email: user.email }, { phone: user.phone }] });
         if(checkDoctor) {
             var message = '';
@@ -169,4 +170,30 @@ const applyDoctorController = async (req, res) => {
         })
     }
 }
-module.exports = { loginController, registerController, authController, getAllDoctorController, applyDoctorController };
+
+const getAllNotificationController = async (req,res) => {
+    try{
+        const user = await userModel.findById({_id:req.body.userId});
+        const seennotifications = user.seennotifications;
+        const notifications = user.notifications;
+        seennotifications.push(...notifications);
+        user.seennotifications = notifications;
+        user.notifications = []
+        const updatedUser = await user.save();
+        updatedUser.password = undefined;
+
+        return res.status(200).send({
+            success:true,
+            message:'All notification marked as Read',
+            user:updatedUser
+        })
+    }catch(error) {
+        console.log(error);
+        res.status(500).send({
+            success: false,
+            error,
+            message:'error getting the Notification'
+        })
+    }
+}
+module.exports = { loginController, registerController, authController, getAllDoctorController, applyDoctorController ,getAllNotificationController};

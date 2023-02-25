@@ -9,6 +9,7 @@ import Spinner from './components/Spinner';
 import PublicRoute from './components/PublicRoute'
 import ProtectedRoute from './components/ProtectedRoute'
 import ApplyDoctor from './pages/ApplyDoctor';
+import NotificationPage from './pages/NotificationPage';
 
 const App = () => {
   const {loading} = useSelector(state => state.alerts)
@@ -45,6 +46,11 @@ const App = () => {
           <Route path='/apply-doctor' element={
               <ProtectedRoute cookies={cookies} removeCookies={handleRemoveCookies}>
                 <ApplyDoctor cookies={cookies} removeCookies={handleRemoveCookies}/>
+              </ProtectedRoute>
+          } />
+          <Route path='/notification' element={
+              <ProtectedRoute cookies={cookies} removeCookies={handleRemoveCookies}>
+                <NotificationPage cookies={cookies} removeCookies={handleRemoveCookies}/>
               </ProtectedRoute>
           } />
           
