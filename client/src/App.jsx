@@ -10,6 +10,8 @@ import PublicRoute from './components/PublicRoute'
 import ProtectedRoute from './components/ProtectedRoute'
 import ApplyDoctor from './pages/ApplyDoctor';
 import NotificationPage from './pages/NotificationPage';
+import Users from './pages/admin/Users';
+import Doctors from './pages/admin/Doctors';
 
 const App = () => {
   const {loading} = useSelector(state => state.alerts)
@@ -46,6 +48,16 @@ const App = () => {
           <Route path='/apply-doctor' element={
               <ProtectedRoute cookies={cookies} removeCookies={handleRemoveCookies}>
                 <ApplyDoctor cookies={cookies} removeCookies={handleRemoveCookies}/>
+              </ProtectedRoute>
+          } />
+          <Route path='/admin/users' element={
+              <ProtectedRoute cookies={cookies} removeCookies={handleRemoveCookies}>
+                <Users cookies={cookies} removeCookies={handleRemoveCookies}/>
+              </ProtectedRoute>
+          } />
+          <Route path='/admin/doctors' element={
+              <ProtectedRoute cookies={cookies} removeCookies={handleRemoveCookies}>
+                <Doctors cookies={cookies} removeCookies={handleRemoveCookies}/>
               </ProtectedRoute>
           } />
           <Route path='/notification' element={

@@ -20,6 +20,7 @@ app.use(moragan('dev'))
 
 //routes
 app.use('/api/v1/user',require('./server/routers/userRoutes'))
+app.use('/api/admin',require('./server/routers/adminRoutes'))
 
 //decleareing port
 const port = process.env.PORT || 8080

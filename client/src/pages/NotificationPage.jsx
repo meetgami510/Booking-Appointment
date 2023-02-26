@@ -23,6 +23,7 @@ const NotificationPage = ({ cookies, removeCookies }) => {
                     Authorization: 'Bearer ' + token
                 }
             })
+            dispatch(hideLoading());
             if(res.data.success){
                 message.success(res.data.message);
                 console.log(res.data.user);
