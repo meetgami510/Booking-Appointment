@@ -13,6 +13,7 @@ import NotificationPage from './pages/NotificationPage';
 import Users from './pages/admin/Users';
 import Doctors from './pages/admin/Doctors';
 import Profile from './pages/doctor/Profile';
+import BookingPage from "./pages/doctor/BookingPage";
 
 const App = () => {
   const {loading} = useSelector(state => state.alerts)
@@ -71,6 +72,14 @@ const App = () => {
                 <NotificationPage cookies={cookies} removeCookies={handleRemoveCookies}/>
               </ProtectedRoute>
           } />
+          <Route
+            path="/doctor/book-appointment/:doctorId"
+            element={
+              <ProtectedRoute cookies={cookies} removeCookies={handleRemoveCookies}>
+                <BookingPage cookies={cookies} removeCookies={handleRemoveCookies} />
+              </ProtectedRoute>
+            }
+          />
           
         </Routes>}
       </BrowserRouter>
