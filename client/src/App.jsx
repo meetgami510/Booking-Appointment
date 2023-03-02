@@ -12,6 +12,7 @@ import ApplyDoctor from './pages/ApplyDoctor';
 import NotificationPage from './pages/NotificationPage';
 import Users from './pages/admin/Users';
 import Doctors from './pages/admin/Doctors';
+import Profile from './pages/doctor/Profile';
 
 const App = () => {
   const {loading} = useSelector(state => state.alerts)
@@ -58,6 +59,11 @@ const App = () => {
           <Route path='/admin/doctors' element={
               <ProtectedRoute cookies={cookies} removeCookies={handleRemoveCookies}>
                 <Doctors cookies={cookies} removeCookies={handleRemoveCookies}/>
+              </ProtectedRoute>
+          } />
+          <Route path='/doctor/profile' element={
+              <ProtectedRoute cookies={cookies} removeCookies={handleRemoveCookies}>
+                <Profile cookies={cookies} removeCookies={handleRemoveCookies}/>
               </ProtectedRoute>
           } />
           <Route path='/notification' element={

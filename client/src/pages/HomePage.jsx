@@ -8,7 +8,7 @@ import {Row,message} from 'antd'
 
 const HomePage = ({cookies ,removeCookies}) => {
 
-  const [doctors,setDoctors] = useState([])
+  const [doctors,setallDoctors] = useState(null)
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -16,36 +16,35 @@ const HomePage = ({cookies ,removeCookies}) => {
     //console.log("here");
     const getDoctorData = async () => {
       try{
-        dispatch(showLoading());
+        //dispatch(showLoading());
         const res = await axios.get('/api/v1/user/getAllDoctor',
-        
           {
             headers: {
               authorization : 'Bearer ' + token
             }
           }
         );
-        
+        console.log(res.data);
          dispatch(hideLoading());
         if(res.data.success) {
-          
           message.success(res.data.message);
-          setDoctors(res.data.doctorList);
-          //console.log(res.data.doctorList);
+          console.log(res.data.doctorList);
+          setallDoctors(res.data.doctorList);
+          console.log(doctors);
         }else{
           message.error(res.data.message);
         }
       }catch(error) {
         console.log(error);
-        // dispatch(hideLoading());
+         dispatch(hideLoading());
         message.error('some thing went wrong ');
       }
     }
-    if(doctors== null) {
       getDoctorData();
-    }
-    
-  },[])
+      console.log(doctors);
+      //eslint-disable-next-line
+
+  },[cookies])
 
   return (
     <Layout removeCookies={removeCookies}>

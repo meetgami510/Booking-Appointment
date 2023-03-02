@@ -89,9 +89,9 @@ const authController = async (req, res) => {
 
 const getAllDoctorController = async (req, res) => {
     try {
-        console.log("hiehre")
-        console.log(req.name);
-        const doctorList = await doctorModel.find({ name: req.name });
+        // console.log("hiehre")
+        // console.log(req.body.name);
+        const doctorList = await doctorModel.find({ status: 'approved' });
         res.status(200).send({
             success: true,
             message: 'doctor list fetched successfully',

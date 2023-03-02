@@ -7,11 +7,11 @@ const DoctorList = ({ doctor }) => {
     <>
         <div className="card m-2" style={{cursor:"pointer"}} onClick={() => navigate(`/doctor/book-appointment/${doctor._id}`)}> 
             
-        </div>
+        
         <div className="card-header">
-            Dr. {doctor.firstName} {doctor.lastName}
+            Dr. {doctor.firstName} {doctor.lastName}    
         </div>
-        <div className="card-bady">
+        <div className="card-body">
             <p>
                 <b>Specialization</b> {doctor.specialization}
             </p>
@@ -22,8 +22,9 @@ const DoctorList = ({ doctor }) => {
                 <b>Fees Per Consaltation</b> {doctor.feesPerCunsaltation}
             </p>
             <p>
-                <b>Timins </b> {doctor.timing[0]} - {doctor.timing[1]}
+                <b>Timins </b> {doctor.timings[0]} - {doctor.timings[1]}
             </p>
+        </div>
         </div>
     </>
   )
