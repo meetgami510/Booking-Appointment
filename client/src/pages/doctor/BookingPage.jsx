@@ -49,9 +49,71 @@ const BookingPage = ({ cookies, removeCookies }) => {
     //eslint-disable-next-line
   }, [cookies]);
 
-  const handleBooking = async () => {}
+  const handleBooking = async () => {
+    const { token } = cookies;
+    try {
+        if (!date || !time) {
+            return alert('date and time is required');
+        }
+        dispatch(showLoading());
+        console.log(time);
+        console.log(date);
+        console.log(time);
+        const res = await axios.post(
+            '/api/v1/user/book-appointment',
+            {
+                doctorId: params.doctorId,
+                doctorInfo: doctor,
+                userInfo: user,
+                date,
+                time
+            },
+            {
+                headers: {
+                    authorization: 'Bearer ' + token
+                }
+            }
+        );
+        dispatch(hideLoading());
+        if (res.data.success) {
+            message.success(res.data.message);
+            setDoctor(res.data.doctor);
+            console.log(res.data.doctor);
+        } else {
+            message.error(res.data.message);
+        }
+    } catch (error) {
+        console.log(error);
+        dispatch(hideLoading());
+        message.error('some thing went wrong');
+    }
+  }
 
-  const checkAvailability = async (req, res) => {}
+  const checkAvailability = async (req, res) => {
+    const { token } = cookies;
+    try {
+        dispatch(showLoading());
+        const res = await axios.post('/api/v1/user/booking-avalibility',
+            { doctorId: params.doctorId, date, time },
+            {
+                headers: {
+                    authorization: 'Bearer ' + token
+                }
+            }
+        );
+        dispatch(hideLoading());
+        if (res.data.success) {
+            setIsAvailable(true);
+            message.success(res.data.message);
+        } else {
+            message.error(res.data.message);
+        }
+    } catch (error) {
+        console.log(error);
+        dispatch(hideLoading());
+        message.error('some thing went wrong');
+    }
+  }
 
   return (
     <Layout>
