@@ -14,6 +14,9 @@ import Users from './pages/admin/Users';
 import Doctors from './pages/admin/Doctors';
 import Profile from './pages/doctor/Profile';
 import BookingPage from "./pages/doctor/BookingPage";
+import Appointments from "./pages/Appointments";
+import NotFound from "./pages/NotFound";
+import DoctorAppointments from "./pages/doctor/DoctorAppointments";
 
 const App = () => {
   const {loading} = useSelector(state => state.alerts)
@@ -80,7 +83,23 @@ const App = () => {
               </ProtectedRoute>
             }
           />
-          
+         <Route
+            path="/appointments"
+            element={
+              <ProtectedRoute cookies={cookies} removeCookies={handleRemoveCookies}>
+                <Appointments cookies={cookies} removeCookies={handleRemoveCookies} />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/doctor-appointments"
+            element={
+              <ProtectedRoute cookies={cookies} removeCookies={handleRemoveCookies}>
+                <DoctorAppointments cookies={cookies} removeCookies={handleRemoveCookies} />
+              </ProtectedRoute>
+            }
+          />
+          <Route path="*" element={<NotFound />} />
         </Routes>}
       </BrowserRouter>
     </>
